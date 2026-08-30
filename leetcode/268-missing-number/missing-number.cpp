@@ -13,21 +13,23 @@
 
 
 
-// better approach ..XOR method
+// best approach ..XOR method
 
-// class Solution {
-// public:
-//     int missingNumber(vector<int>& nums) {
-//        int ans =nums.size();
-       
-    
-//        for(int i=0; i<nums.size(); i++){
-//           ans ^= i;
-//           ans ^= nums[i];
-//        } 
-//        return ans;
-//     }
-// };
+class Solution {
+public:
+    int missingNumber(vector<int>& nums) {
+       int xor1 = 0;
+       int xor2 = 0;
+
+       for(int i=1; i<nums.size()+1; i++){
+            xor1 ^= i;
+       }
+       for(int num : nums){
+            xor2 ^= num;
+       }
+       return xor1 ^ xor2;
+    }
+};
 
 
 // brute
@@ -53,20 +55,20 @@
 
 
 // another better solution (hashing)
-class Solution {
-public:
-    int missingNumber(vector<int>& nums) {
-        int n=nums.size();
-       vector<int> hash(n+1, 0);
+// class Solution {
+// public:
+//     int missingNumber(vector<int>& nums) {
+//         int n=nums.size();
+//        vector<int> hash(n+1, 0);
 
-       for(int i=0; i<n; i++){
-            hash[nums[i]]++;
-       }
-       for(int i=0; i<=n; i++){
-            if(hash[i] == 0){
-                return i;
-            }
-       }
-       return -1;
-    }
-};
+//        for(int i=0; i<n; i++){
+//             hash[nums[i]]++;
+//        }
+//        for(int i=0; i<=n; i++){
+//             if(hash[i] == 0){
+//                 return i;
+//             }
+//        }
+//        return -1;
+//     }
+// };
