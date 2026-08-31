@@ -13,7 +13,7 @@
 // };
 
 
-// better HashMap Approach
+// best HashMap Approach
 
 class Solution {
 public:
@@ -30,3 +30,4 @@ public:
       return {};
     }
 };
+
