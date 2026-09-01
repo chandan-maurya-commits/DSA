@@ -21,45 +21,51 @@
 //  };
 
 
- //BETTER
- // BRUTE
+//  //BETTER USING (HASHING..)
+ 
+// class Solution {
+//  public:
+//      int majorityElement(vector<int>& nums) {
+//         int n= nums.size();
+//         map<int, int> mp;
+//         for(int i=0; i<nums.size(); i++){
+//             mp[nums[i]]++;
+//         }
+//         for(auto x : mp){
+//             if(x.second > n/2){
+//                 return x.first;
+//             }
+//         }
+//         return -1;
+            
+//         }
+        
+//  }; 
+
+// BEST (MOOR'S VOTING ALGORITHEM)
 class Solution {
  public:
      int majorityElement(vector<int>& nums) {
-        int n= nums.size();
-        map<int, int> mp;
+        int count =0;
+        int ele = nums[0];
         for(int i=0; i<nums.size(); i++){
-            mp[nums[i]]++;
-        }
-        for(auto x : mp){
-            if(x.second > n/2){
-                return x.first;
+            if(count == 0){
+                count++;
+                ele = nums[i];
+            }else if(nums[i] == ele){
+                count++;
+            }else{
+                count--;
             }
         }
-        return -1;
+        int counter =0;
+        for(int i=0; i<nums.size(); i++){
+            if(nums[i] == ele){
+                counter++;
+            }
+        }
+        return (counter > nums.size()/2)? ele : -1;
             
         }
         
  }; 
-
-
-//moore's voting algo. most Optimized.
-// class Solution {
-//  public:
-//      int majorityElement(vector<int>& nums) {
-//         int n =nums.size();
-//         int freq=0, ans=0;
-
-//         for(int i=0; i<n; i++){
-//             if(freq == 0){
-//                 ans =nums[i];
-//             }if(ans == nums[i]){
-//                 freq++;
-//             }else{
-//                 freq--;
-//             }
-//         }
-//         return ans;
-         
-//     }
-//  };
