@@ -31,35 +31,71 @@
 //     }
 // };
 
+
+// Beter
+// class Solution {
+// public:
+//     int longestConsecutive(vector<int>& nums) {
+
+//         if(nums.size() == 0){
+//             return 0;
+//         }
+//         if(nums.size() == 1){
+//             return 1;
+//         }
+//         sort(nums.begin(), nums.end());
+
+//         int maxCount = 0;
+//         int x = nums[0];
+//         int count = 1;
+//         for(int i=1; i<nums.size(); i++){
+            
+//             if(nums[i] == x+1 ){
+//                 count++;
+//                 x++;
+//             }else if(nums[i] == x){
+
+//             }else{
+//                 count = 1;
+//                 x = nums[i];
+//             }
+//             maxCount = max(count, maxCount);
+//         }
+//         return maxCount;
+            
+//     }
+// };
+
+
+// optimal 
+
 class Solution {
 public:
     int longestConsecutive(vector<int>& nums) {
+        if(nums.size() == 0) return 0;
+        if(nums.size() == 1) return 1;
+        int longest = 1;
 
-        if(nums.size() == 0){
-            return 0;
+        unordered_set<int> st;
+        for(int i=0; i<nums.size(); i++){
+            st.insert(nums[i]);
         }
-        if(nums.size() == 1){
-            return 1;
-        }
-        sort(nums.begin(), nums.end());
 
-        int maxCount = 0;
-        int x = nums[0];
-        int count = 1;
-        for(int i=1; i<nums.size(); i++){
-            
-            if(nums[i] == x+1 ){
-                count++;
-                x++;
-            }else if(nums[i] == x){
+        for(auto x : st){
+            if(st.find(x-1) == st.end()){
+                int count =1;
+                int first = x;
 
-            }else{
-                count = 1;
-                x = nums[i];
+                while(st.find(x+1) != st.end()){
+                    count++;
+                    x++;
+                }
+             longest = max(longest, count);
             }
-            maxCount = max(count, maxCount);
+           
+
         }
-        return maxCount;
-            
+        return longest;
     }
 };
+
