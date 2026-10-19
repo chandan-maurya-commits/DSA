@@ -15,26 +15,26 @@ public:
             ListNode* slow = head;
 
              
-            for(int i=0; i<n; i++){
-                fast = fast->next;
-            }
+         for(int i=0; i<n; i++){
+            fast = fast->next;
 
-            if (fast == nullptr) {
-            ListNode* removed = head;
+         }
+         if(fast == nullptr){
+            ListNode* dltHead = head;
             head = head->next;
-            delete removed;
-            return head;
-        }
-           
-            while(fast->next != nullptr){
-                slow = slow->next;
-                fast = fast->next;
-            }
-            ListNode* removed = slow->next;
-            slow->next = removed->next;
-            delete removed;
+            delete dltHead;
+            return head; 
+         }
+         while(fast->next != nullptr){
+            fast = fast->next;
+            slow = slow->next;
+         }
+        ListNode* dltNode = slow->next;
+        slow->next = slow->next->next;
+        delete dltNode;
 
-            return head;
+        return head;
+
 
     }
 };
