@@ -30,20 +30,41 @@
 //     }
 // };
 
+
+// Best
+// class Solution {
+// public:
+//     ListNode* reverseList(ListNode* head) {
+//         ListNode* temp = head;
+//         ListNode* prev = nullptr;
+//         ListNode* front;
+
+//         while(temp != nullptr){
+//             front = temp->next;
+//             temp->next = prev;
+//             prev = temp;
+//             temp = front;
+
+//         }
+//         return prev;
+//     }
+// };
+
 class Solution {
 public:
     ListNode* reverseList(ListNode* head) {
-        ListNode* temp = head;
-        ListNode* prev = nullptr;
-        ListNode* front;
+        
+        
+            if(head == nullptr || head->next == nullptr){
+                return head;
+            }
+                ListNode* newHead = reverseList(head->next);
+                ListNode* front = head->next;
 
-        while(temp != nullptr){
-            front = temp->next;
-            temp->next = prev;
-            prev = temp;
-            temp = front;
-
-        }
-        return prev;
+                front->next = head;
+                head->next = nullptr;
+            
+        
+        return newHead;
     }
 };
