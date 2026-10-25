@@ -8,26 +8,46 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
+
+//  Brute
+// class Solution {
+// public:
+//     ListNode* middleNode(ListNode* head) {
+//         int count = 0;
+//         ListNode* temp = head;
+
+//         while(temp != nullptr){
+//             count++;
+//             temp = temp->next;
+//         }
+//         int middleNode = count/2 + 1;
+
+//         temp = head;
+//         while(temp  != nullptr){
+//             middleNode--;
+//             if(middleNode == 0) break;
+
+            
+//             temp = temp->next;
+//         }
+//         return temp;
+//     }
+// };
+
+
+//  Optimized
 class Solution {
 public:
     ListNode* middleNode(ListNode* head) {
-        int count = 0;
-        ListNode* temp = head;
+        ListNode* slow = head;
+        ListNode* fast = head;
 
-        while(temp != nullptr){
-            count++;
-            temp = temp->next;
+        while(fast != nullptr && fast->next != nullptr){
+            slow = slow->next;
+            fast = fast->next->next;
+
         }
-        int middleNode = count/2 + 1;
+        return slow;
 
-        temp = head;
-        while(temp  != nullptr){
-            middleNode--;
-            if(middleNode == 0) break;
-
-            
-            temp = temp->next;
-        }
-        return temp;
     }
 };
