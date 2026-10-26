@@ -6,20 +6,48 @@
  *     ListNode(int x) : val(x), next(NULL) {}
  * };
  */
+
+//  Brute
+// class Solution {
+// public:
+//     ListNode *detectCycle(ListNode *head) {
+//         ListNode* temp = head;
+//         unordered_map<ListNode* , int> mp;
+
+//         while(temp != nullptr && temp->next != nullptr){
+//             if(mp.find(temp) != mp.end()){
+//                 return temp;
+//                 break;
+//             }
+//             mp[temp] = 1;
+//             temp = temp->next;
+
+//         }
+//         return nullptr;
+//     }
+// };
+
+
+// Optimal
 class Solution {
 public:
     ListNode *detectCycle(ListNode *head) {
-        ListNode* temp = head;
-        unordered_map<ListNode* , int> mp;
+        
+        ListNode* slow = head;
+        ListNode* fast = head;
 
-        while(temp != nullptr && temp->next != nullptr){
-            if(mp.find(temp) != mp.end()){
-                return temp;
-                break;
+        while(fast != nullptr && fast->next != nullptr){
+            slow = slow->next;
+            fast = fast->next->next;
+
+            if(slow == fast){
+                slow =head;
+                while(slow != fast){
+                    slow = slow->next;
+                    fast = fast->next;
+                }
+                return slow;
             }
-            mp[temp] = 1;
-            temp = temp->next;
-
         }
         return nullptr;
     }
