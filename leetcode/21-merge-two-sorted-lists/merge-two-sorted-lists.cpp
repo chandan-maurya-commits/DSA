@@ -8,26 +8,56 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
+
+//  Brute
+// class Solution {
+// public:
+//     ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+        
+//          ListNode dummy(-1);
+//          ListNode* tail = &dummy;
+//          while(list1 != nullptr && list2 != nullptr ){
+//             if(list1->val <= list2->val){
+//                 tail->next = list1;
+//                 list1 = list1->next;
+//             }else{
+//                 tail->next = list2;
+//                 list2 = list2->next;
+//             } 
+//             tail = tail->next;
+//          }
+
+//          tail->next = (list1 != nullptr) ? list1 : list2;
+
+//         return dummy.next;
+
+//     }
+// };
+
+// Optimal
 class Solution {
 public:
     ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
-        
-         ListNode dummy(-1);
-         ListNode* tail = &dummy;
-         while(list1 != nullptr && list2 != nullptr ){
-            if(list1->val <= list2->val){
-                tail->next = list1;
+        if(list1 == nullptr) return list2;
+        if(list2 == nullptr) return list1;
+        if(list1->val > list2->val){
+            ListNode* temp = list1;
+            list1 = list2;
+            list2 = temp;
+        }
+        ListNode* res = list1;
+        while(list1 != nullptr && list2 != nullptr){
+            ListNode* temp = nullptr;
+            while(list1 != nullptr && list1->val <= list2->val){
+                temp = list1;
                 list1 = list1->next;
-            }else{
-                tail->next = list2;
-                list2 = list2->next;
-            } 
-            tail = tail->next;
-         }
+            }
+            temp->next = list2;
 
-         tail->next = (list1 != nullptr) ? list1 : list2;
-
-        return dummy.next;
-
+            temp = list1;
+            list1 = list2;
+            list2 = temp;
+        }
+        return res;
     }
 };
