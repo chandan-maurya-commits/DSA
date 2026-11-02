@@ -8,25 +8,78 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
+
+//  Brute
+// class Solution {
+// public:
+//     ListNode* sortList(ListNode* head) {
+//         vector<int> nums;
+        
+//         int i = 0;
+
+//         for(ListNode* temp = head; temp != nullptr; temp = temp->next){
+//             nums.push_back(temp->val);
+            
+//         }
+//         sort(nums.begin(), nums.end());
+//         ListNode* temp = head;
+
+//         for(int num : nums){
+//             temp->val = num;
+//             temp = temp->next;
+//         }
+
+//     return head;
+//     }
+// };
+
 class Solution {
 public:
     ListNode* sortList(ListNode* head) {
-        vector<int> nums;
+        if(head == nullptr || head->next == nullptr){
+            return head;
+        }
+        ListNode* slow = head;
+        ListNode* fast = head;
+        ListNode* prev = nullptr;
+
+        while(fast != nullptr && fast->next != nullptr){
+            prev = slow;
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+
+        prev->next = nullptr;
+
+        ListNode* left = sortList(head);
+        ListNode* right = sortList(slow);
+
+         return merge(left, right);
+
+    }
+
+    ListNode* merge(ListNode* left, ListNode* right){
+        ListNode dummy(0);
+        ListNode* tail = &dummy;
+
+        while(left != nullptr && right!= nullptr){
+            if(left->val <= right->val){
+                tail->next = left;
+                left = left->next;
+            }else{
+                tail->next = right;
+                right = right->next;
+            }
+            tail = tail->next;
+        }
         
-        int i = 0;
-
-        for(ListNode* temp = head; temp != nullptr; temp = temp->next){
-            nums.push_back(temp->val);
-            
+        if( left != nullptr){
+            tail->next = left;
         }
-        sort(nums.begin(), nums.end());
-        ListNode* temp = head;
-
-        for(int num : nums){
-            temp->val = num;
-            temp = temp->next;
+        if(right != nullptr){
+            tail->next = right;
         }
+        return dummy.next;
 
-    return head;
     }
 };
