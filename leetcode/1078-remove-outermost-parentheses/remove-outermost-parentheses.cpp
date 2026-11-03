@@ -1,21 +1,44 @@
+// class Solution {
+// public:
+//     string removeOuterParentheses(string s) {
+//         stack<char> st;
+//         string ans = "";
+
+//         for( int i=0; i<s.length(); i++){
+//             if(s[i] == '('){
+//                 if(!st.empty()){
+//                     ans += s[i];
+//                 }
+//                 st.push(s[i]);
+//             }else{
+//                  st.pop();
+//                 if(!st.empty()){
+//                     ans += s[i];
+//                 }
+               
+//             }
+//         }
+//         return ans;
+//     }
+// };
+
 class Solution {
 public:
     string removeOuterParentheses(string s) {
-        stack<char> st;
+        int count = 0;
         string ans = "";
 
-        for( int i=0; i<s.length(); i++){
+        for(int i=0; i<s.size(); i++){
             if(s[i] == '('){
-                if(!st.empty()){
+                if(count > 0){
                     ans += s[i];
                 }
-                st.push(s[i]);
+                count++;
             }else{
-                 st.pop();
-                if(!st.empty()){
+                count--;
+                if(count>0){
                     ans += s[i];
                 }
-               
             }
         }
         return ans;
